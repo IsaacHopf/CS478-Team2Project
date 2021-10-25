@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //move the character left and right
-        rb2D.velocity = new Vector2 (horizontalMovement*speed, 0);
+        rb2D.velocity = new Vector2 (horizontalMovement*speed, rb2D.velocity.y);
         Flip(horizontalMovement);
         myAnimator.SetFloat("speed", Mathf.Abs(horizontalMovement));
 
