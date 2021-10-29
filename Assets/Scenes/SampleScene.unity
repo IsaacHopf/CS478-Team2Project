@@ -13789,7 +13789,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355811559}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.019, y: -2.066, z: 0}
+  m_LocalPosition: {x: 0.019, y: -1.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2008062012}
@@ -14516,6 +14516,7 @@ GameObject:
   - component: {fileID: 2008062016}
   - component: {fileID: 2008062015}
   - component: {fileID: 2008062014}
+  - component: {fileID: 2008062019}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -14615,7 +14616,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008062010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93066dd942230c643af39db72703a641, type: 3}
   m_Name: 
@@ -14635,7 +14636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008062010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcfd65c37bb3cef42a6677e462e62311, type: 3}
   m_Name: 
@@ -14705,6 +14706,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2008062019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008062010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3a2287fe49769458f62746b57afbca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  jumpForce: 12
+  jumpTime: 0.25
+  groundcheck: {fileID: 1355811560}
+  radOCircle: 0.15
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  grounded: 0
 --- !u!1 &2044429048
 GameObject:
   m_ObjectHideFlags: 0
