@@ -6,11 +6,15 @@ public class Player : Character
 {
     private float runSpeed = 12.0f;
     private float walkSpeed = 1.0f;
-    
+
+    [SerializeField] private HealthBar healthBar;
+
     public override void Start()
     {
         base.Start();
         speed = runSpeed;
+
+        healthBar.SetMaxHealth(maxHealth);
     }
     public override void Update()
     {

@@ -24,8 +24,12 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected bool grounded;
     protected float jumpTimeCounter;
     protected bool stoppedJumping;
+
     //[Header("Attack Variables")]
-    //[Header("Character Stats")]
+
+    [Header("Character Stats")]
+    [SerializeField] protected int maxHealth;
+    protected int currentHealth;
 
     protected Rigidbody2D rb;
     protected Animator myAnimator;
@@ -35,6 +39,8 @@ public abstract class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         jumpTimeCounter = jumpTime;
+
+        currentHealth = maxHealth;
     }
 
     public virtual void Update()
@@ -47,6 +53,12 @@ public abstract class Character : MonoBehaviour
         {
             myAnimator.SetBool("falling", true);
 
+        }
+
+        //note that hp should be checked only when hp is changed (i.e. combat), but this is here for testing
+        if (currentHealth <= 0)
+        {
+            Death();
         }
     }
 
@@ -103,5 +115,23 @@ public abstract class Character : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundcheck.position, radOCircle);
+    }
+
+    protected void Death()
+    {
+        //Death is called when hp <= 0
+        //note that hp should be checked when engaging in combat (it is unecessary to check in Update())
+
+        //activate death animation
+        //myAnimator.SetBool("isDead", true);
+
+        //reset hp
+        //currentHealth = maxHealth;
+
+        //send player to last checkpoint
+
+
+        //deactivate death animation
+        //myAnimator.SetBool("isDead", false);
     }
 }
