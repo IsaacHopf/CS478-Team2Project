@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour
 
     [Header("Character Stats")]
     [SerializeField] protected int maxHealth;
-    protected int currentHealth;
+    [SerializeField] protected int currentHealth; //temporarily serialized for testing
 
     protected Rigidbody2D rb;
     protected Animator myAnimator;
@@ -117,21 +117,16 @@ public abstract class Character : MonoBehaviour
         Gizmos.DrawSphere(groundcheck.position, radOCircle);
     }
 
-    protected void Death()
+    protected virtual void Death()
     {
         //Death is called when hp <= 0
         //note that hp should be checked when engaging in combat (it is unecessary to check in Update())
 
-        //activate death animation
+        //death animation
         //myAnimator.SetBool("isDead", true);
-
-        //reset hp
-        //currentHealth = maxHealth;
-
-        //send player to last checkpoint
-
-
-        //deactivate death animation
         //myAnimator.SetBool("isDead", false);
+
+        //disable character
+        //someSprite.enabled = false;
     }
 }

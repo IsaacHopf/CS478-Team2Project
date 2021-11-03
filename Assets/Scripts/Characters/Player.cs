@@ -68,4 +68,10 @@ public class Player : Character
             myAnimator.ResetTrigger("jump");
         }
     }
+
+    protected override void Death()
+    {
+        base.Death();
+        FindObjectOfType<GameManager>().EndGame(); //finds GameManager instead of declaring an object bc an object cannot be linked to a prefab
+    }
 }
