@@ -54,12 +54,6 @@ public abstract class Character : MonoBehaviour
             myAnimator.SetBool("falling", true);
 
         }
-
-        //note that hp should be checked only when hp is changed (i.e. combat), but this is here for testing
-        if (currentHealth <= 0)
-        {
-            Death();
-        }
     }
 
     public virtual void FixedUpdate()
@@ -117,16 +111,5 @@ public abstract class Character : MonoBehaviour
         Gizmos.DrawSphere(groundcheck.position, radOCircle);
     }
 
-    protected virtual void Death()
-    {
-        //Death is called when hp <= 0
-        //note that hp should be checked when engaging in combat (it is unecessary to check in Update())
-
-        //death animation
-        //myAnimator.SetBool("isDead", true);
-        //myAnimator.SetBool("isDead", false);
-
-        //disable character
-        //someSprite.enabled = false;
-    }
+    protected abstract void Death();
 }

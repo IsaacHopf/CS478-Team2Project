@@ -8,20 +8,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    bool gameHasEnded = false;
+    public Animator fadeAnimator;
 
-    public float restartDelay = 1f;
-
-    public void EndGame()
+    public void Restart()
     {
-        if (gameHasEnded == false)
-        {
-            gameHasEnded = true;
-            Invoke("Restart", restartDelay);
-        }
+        fadeAnimator.SetTrigger("FadeOut");
+        Invoke("RestartScene", 1.2f); //restart the scene after fade out (1.2 secs)
     }
-
-    void Restart()
+    private void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
