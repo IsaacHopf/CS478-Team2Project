@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Enemy : Character
 {
+
+    protected override void HandleAttack()
+    {
+    }
     protected override void HandleJumping()
     {
         

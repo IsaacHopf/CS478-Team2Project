@@ -25,7 +25,10 @@ public abstract class Character : MonoBehaviour
     protected float jumpTimeCounter;
     protected bool stoppedJumping;
 
-    //[Header("Attack Variables")]
+    [Header("Attack Variables")]
+    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected float attackRange = 0.5f;
+    [SerializeField] protected LayerMask enemyLayers; 
 
     [Header("Character Stats")]
     [SerializeField] protected int maxHealth;
@@ -74,6 +77,17 @@ public abstract class Character : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
+    protected void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("We hit " + enemy.name);
+        }
+    }
+
+    protected abstract void HandleAttack();
+
     protected abstract void HandleJumping();
 
     //handles everything with movement
@@ -109,6 +123,12 @@ public abstract class Character : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundcheck.position, radOCircle);
+
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
+
     }
 
     protected abstract void Death();

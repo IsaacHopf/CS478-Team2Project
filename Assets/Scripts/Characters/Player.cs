@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,11 +22,20 @@ public class Player : Character
         base.Update();
         direction = Input.GetAxisRaw("Horizontal");
         HandleJumping();
+        HandleAttack();
 
         //note that hp should be checked only when hp is changed (i.e. combat), but this is here for testing
         if (currentHealth <= 0) Death();
     }
 
+    protected override void HandleAttack()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            myAnimator.SetTrigger("Attack");
+            Attack();
+        }
+    }
     protected override void HandleMovement()
     {
         base.HandleMovement();
