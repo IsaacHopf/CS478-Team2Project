@@ -8,13 +8,14 @@ public class Player : Character
     private float runSpeed = 12.0f;
     private float walkSpeed = 1.0f;
 
-    [SerializeField] private HealthBar healthBar;
+    private HealthBar healthBar;
 
     public override void Start()
     {
         base.Start();
         speed = runSpeed;
 
+        healthBar = FindObjectOfType<HealthBar>();
         healthBar.SetMaxHealth(maxHealth);
     }
     public override void Update()
@@ -23,9 +24,6 @@ public class Player : Character
         direction = Input.GetAxisRaw("Horizontal");
         HandleJumping();
         HandleAttack();
-
-        //note that hp should be checked only when hp is changed (i.e. combat), but this is here for testing
-        if (currentHealth <= 0) Death();
     }
 
     protected override void HandleAttack()
@@ -80,6 +78,12 @@ public class Player : Character
             myAnimator.SetBool("falling", true);
             myAnimator.ResetTrigger("jump");
         }
+    }
+
+    public override void AdjustCurrentHealth(int health)
+    {
+        base.AdjustCurrentHealth(health);
+        healthBar.SetHealth(currentHealth);
     }
 
     protected override void Death()
