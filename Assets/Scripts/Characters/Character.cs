@@ -33,6 +33,7 @@ public abstract class Character : MonoBehaviour
     [Header("Character Stats")]
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int currentHealth; //temporarily serialized for testing
+    [SerializeField] protected int damage = 50;
 
     protected Rigidbody2D rb;
     protected Animator myAnimator;
@@ -82,7 +83,8 @@ public abstract class Character : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach(Collider2D enemy in hitEnemies)
         {
-            Debug.Log("We hit " + enemy.name);
+            
+            enemy.GetComponent<Enemy>().takeDamage(damage);
         }
     }
 
