@@ -88,6 +88,6 @@ public class Player : Character
 
     protected override void Death()
     {
-        FindObjectOfType<GameManager>().Restart();
+        FindObjectOfType<GameManager>().RestartLevel();
     }
 }
