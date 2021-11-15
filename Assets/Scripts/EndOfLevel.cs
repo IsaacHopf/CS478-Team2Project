@@ -23,7 +23,7 @@ public class EndOfLevel : MonoBehaviour
 
         if (playerX > eolX)
         {
-            gameManager.LoadNextLevel();
+            StartCoroutine(gameManager.LoadNextScene());
         }
     }
 
