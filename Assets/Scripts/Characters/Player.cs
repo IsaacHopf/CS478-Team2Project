@@ -21,9 +21,16 @@ public class Player : Character
     public override void Update()
     {
         base.Update();
+        //check vertical velocity
+        if (rb.velocity.y < 0)
+        {
+            myAnimator.SetBool("falling", true);
+
+        }
         direction = Input.GetAxisRaw("Horizontal");
         HandleJumping();
         HandleAttack();
+        HandleLayers();
     }
 
     protected override void HandleAttack()
@@ -89,5 +96,19 @@ public class Player : Character
     protected override void Death()
     {
         StartCoroutine(FindObjectOfType<GameManager>().RestartScene());
+    }
+
+    //handles the animation layers
+    protected void HandleLayers()
+    {
+        if (!grounded)
+        {
+            myAnimator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+
+            myAnimator.SetLayerWeight(1, 0);
+        }
     }
 }

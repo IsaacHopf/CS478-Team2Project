@@ -52,19 +52,13 @@ public abstract class Character : MonoBehaviour
         //grounded if:
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOCircle, whatIsGround);
 
-        //check vertical velocity
-        if (rb.velocity.y < 0)
-        {
-            myAnimator.SetBool("falling", true);
-
-        }
     }
 
     public virtual void FixedUpdate()
     {
         //handles mechanices and physics
         HandleMovement();
-        HandleLayers();
+
     }
     //actually moves the chacter
     protected void Move()
@@ -109,19 +103,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    //handles the animation layers
-    protected void HandleLayers()
-    {
-        if (!grounded)
-        {
-            myAnimator.SetLayerWeight(1, 1);
-        }
-        else
-        {
 
-            myAnimator.SetLayerWeight(1, 0);
-        }
-    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundcheck.position, radOCircle);
