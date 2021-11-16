@@ -1,22 +1,34 @@
 /*
- * GameManger is responsible for changing states in our game
- * like starting and stopping the game, restarting the game, displaying UI, switching scenes, etc.
+ * GameManger is responsible for restarting the game and switching scenes
  */
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Animator fadeAnimator;
+    public float fadeTime;
 
-    public void Restart()
+    public IEnumerator RestartScene()
     {
         fadeAnimator.SetTrigger("FadeOut");
-        Invoke("RestartScene", 1.2f); //restart the scene after fade out (1.2 secs)
-    }
-    private void RestartScene()
-    {
+        yield return new WaitForSeconds(fadeTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public IEnumerator LoadNextScene()
+    {
+        fadeAnimator.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public IEnumerator LoadMainMenuScene()
+    {
+        fadeAnimator.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene("MainMenu");
     }
 }

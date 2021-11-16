@@ -6,9 +6,6 @@ using UnityEngine;
 public class Enemy : Character
 {
    
-
-
-<<<<<<< HEAD
     public override void Start()
     {
         base.Start();
@@ -29,9 +26,7 @@ public class Enemy : Character
 
     }
     protected override void HandleAttack()
-=======
-protected override void HandleAttack()
->>>>>>> bd027332840f4eae685fe413dc728d68100849e0
+
     {
     }
     protected override void HandleJumping()

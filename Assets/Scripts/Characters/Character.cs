@@ -37,7 +37,7 @@ public abstract class Character : MonoBehaviour
 
     protected Rigidbody2D rb;
     protected Animator myAnimator;
-
+    
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -131,6 +131,30 @@ public abstract class Character : MonoBehaviour
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
 
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public virtual void AdjustCurrentHealth(int health)
+    {
+        currentHealth += health;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+        else if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
     }
 
     protected abstract void Death();
