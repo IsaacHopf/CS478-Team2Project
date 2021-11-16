@@ -13503,11 +13503,8 @@ MonoBehaviour:
     m_Bits: 128
   maxHealth: 20
   currentHealth: 0
-<<<<<<< HEAD
   damage: 50
   healthBar: {fileID: 1661072209}
-=======
->>>>>>> 03da0c613cbac083dd055557f834eb7d17363462
 --- !u!1 &2044429048
 GameObject:
   m_ObjectHideFlags: 0
