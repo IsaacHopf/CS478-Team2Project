@@ -27,15 +27,11 @@ public class EndOfLevel : MonoBehaviour
         }
     }
 
-    Vector3 eolPosition;
-    Vector3 from;
-    Vector3 to;
-
     private void OnDrawGizmos()
     {
-        eolPosition = GetComponent<Transform>().position;
-        from = new Vector3(eolPosition.x, eolPosition.y - 25, eolPosition.z);
-        to = new Vector3(eolPosition.x, eolPosition.y + 25, eolPosition.z);
+        Vector3 eolPosition = GetComponent<Transform>().position;
+        Vector3 from = new Vector3(eolPosition.x, eolPosition.y - 25, eolPosition.z);
+        Vector3 to = new Vector3(eolPosition.x, eolPosition.y + 25, eolPosition.z);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(from, to);
