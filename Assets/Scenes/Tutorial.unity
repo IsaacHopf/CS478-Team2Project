@@ -759,6 +759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  chaseDistance: 9
   grounddetection: {fileID: 1555194236}
 --- !u!114 &369179361
 MonoBehaviour:
