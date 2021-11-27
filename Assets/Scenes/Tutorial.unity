@@ -1210,11 +1210,13 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
+  playerToAttack: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1555194236}
   initialDirection: 1
+  attackDistance: 2
   chaseDistance: 7
 --- !u!95 &369179362
 Animator:
@@ -18725,12 +18727,14 @@ MonoBehaviour:
   attackRange: 2
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
+  playerToAttack: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
-  damage: 50
+  damage: 5
   grounddetection: {fileID: 2009311707}
   initialDirection: 1
+  attackDistance: 2
   chaseDistance: 3
 --- !u!50 &2074767721
 Rigidbody2D:
@@ -18744,7 +18748,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -19490,6 +19494,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6366354147423329565, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: currentHealth
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: enemyLayers.m_Bits
       value: 8
@@ -19497,6 +19509,10 @@ PrefabInstance:
     - target: {fileID: 6366354147849015232, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147849015232, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6366354147849015238, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_RootOrder
@@ -19541,6 +19557,10 @@ PrefabInstance:
     - target: {fileID: 6366354147849015238, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381975, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}

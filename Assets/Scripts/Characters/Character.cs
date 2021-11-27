@@ -15,6 +15,7 @@ public abstract class Character : MonoBehaviour
 
     protected bool facingRight = true;
     protected bool isDead = false;
+    protected bool isAttacking = false;
 
     [Header("Jump Variables")]
     [SerializeField] protected float jumpForce;
@@ -29,7 +30,8 @@ public abstract class Character : MonoBehaviour
     [Header("Attack Variables")]
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected float attackRange = 0.5f;
-    [SerializeField] protected LayerMask enemyLayers; 
+    [SerializeField] protected LayerMask enemyLayers;
+    [SerializeField] protected Transform playerToAttack;
 
     [Header("Character Stats")]
     [SerializeField] protected int maxHealth;
@@ -81,15 +83,7 @@ public abstract class Character : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    protected void Attack()
-    {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-        foreach(Collider2D enemy in hitEnemies)
-        {
-            
-            enemy.GetComponent<Enemy>().takeDamage(damage);
-        }
-    }
+    protected abstract void Attack();
 
     protected abstract void HandleAttack();
 

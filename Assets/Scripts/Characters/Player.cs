@@ -94,6 +94,16 @@ public class Player : Character
         healthBar.SetHealth(currentHealth);
     }
 
+    protected override void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+
+            enemy.GetComponent<Enemy>().AdjustCurrentHealth(damage * -1);
+        }
+    }
+
     protected override void Death()
     {
         StartCoroutine(FindObjectOfType<GameManager>().RestartScene());

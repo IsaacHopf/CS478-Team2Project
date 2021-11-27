@@ -9,7 +9,11 @@ public class Enemy : Character
     private Transform target; //this will be the target the enemy chases.
     public Transform grounddetection;
     public float initialDirection;
+    public float attackDistance = 2;
+    private bool playerWithinRange = false;
+    private float distanceToPlayer;
     private float oldDirection;
+    private bool alreadyAttacking;
     [SerializeField] protected float chaseDistance = 7;
 
     public override void Start()
@@ -32,6 +36,8 @@ public class Enemy : Character
         if (!isDead)
         {
             base.Update();
+            distanceToPlayer = Vector2.Distance(transform.position, target.position);
+            HandleAttack();
         }
 
     }
@@ -55,10 +61,10 @@ public class Enemy : Character
         base.HandleMovement();
         
 
-        //If the target (player) is within chaseDistance, chase the player.
-        if (Vector2.Distance(transform.position, target.position) < chaseDistance)
+        //If the target (player) is within chaseDistance but out of range
+        if (distanceToPlayer < chaseDistance && !playerWithinRange)
         {
-            //If the position of the target (player) is to the LEFT of the Enemy, move the Enemy LEFT
+            //If the player is to the LEFT of the Enemy, move the Enemy LEFT
             if (target.position.x < transform.position.x)
             {
                 direction = -1;
@@ -67,14 +73,22 @@ public class Enemy : Character
 
 
             }
-            //ELSE, the position of the target (player) is to the RIGHT, so move the Enemey RIGHT
+            //ELSE, the player is to the RIGHT of the Enemy, so move the Enemey RIGHT
             else
             {
                 direction = 1;
-
                 TurnAround(direction);
 
             }
+
+
+        }
+
+        //if the player is within range to attack
+        else if (playerWithinRange)
+        {
+
+            direction = 0;
         }
 
         //OTHERWISE just patrol.
@@ -103,18 +117,54 @@ public class Enemy : Character
             }
         }
     }
+
     protected override void HandleAttack()
 
     {
+
+        //if the player is within range, set playerWithinRange to true
+        if (attackDistance >= distanceToPlayer)
+        {
+            playerWithinRange = true;
+
+        }
+        else
+        {
+            playerWithinRange = false;
+        }
+
+        //attack if player is within range
+        if (playerWithinRange)
+        {
+            myAnimator.SetTrigger("attack");
+            if (myAnimator.GetBool("attackFinished"))
+                {
+                    Attack();
+                }
+
+        }
     }
     protected override void HandleJumping()
     {
 
     }
+    protected override void Attack() {
+
+
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (Collider2D player in hitPlayers)
+        {
+
+            player.GetComponent<Player>().AdjustCurrentHealth(damage * -1);
+        }
+
+        myAnimator.ResetTrigger("attackFinished");
+    }
 
     protected override void Death()
     {
         isDead = true;
+        direction = 0;
         myAnimator.SetTrigger("death");
         Invoke("DeactivateEnemy", 5); //deactivates the enemy after death (10 secs)
     }
