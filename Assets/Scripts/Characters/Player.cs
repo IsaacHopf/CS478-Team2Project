@@ -28,6 +28,7 @@ public class Player : Character
 
         }
         direction = Input.GetAxisRaw("Horizontal");
+        Debug.Log(direction);
         HandleJumping();
         HandleAttack();
         HandleLayers();

@@ -39,11 +39,13 @@ public class Patrol : MonoBehaviour
             if (movingright == true)
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
+                //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
                 movingright = false;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
+                //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
                 movingright = true;
             }
 

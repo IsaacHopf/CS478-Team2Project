@@ -783,7 +783,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369179358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -820,6 +820,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   damage: 50
+  grounddetection: {fileID: 1555194236}
+  chaseDistance: 3
 --- !u!95 &369179362
 Animator:
   serializedVersion: 3
@@ -17858,7 +17860,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009311706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.172, y: -0.099, z: 0}
+  m_LocalPosition: {x: 0.172, y: -0.099, z: -425.62}
   m_LocalScale: {x: 0.22222224, y: 0.22222224, z: 1}
   m_Children: []
   m_Father: {fileID: 2074767718}
@@ -17926,7 +17928,7 @@ Transform:
   m_GameObject: {fileID: 2074767717}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -33.06, y: -2.14, z: 38.047348}
-  m_LocalScale: {x: -4.5, y: 4.5, z: 1}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 1}
   m_Children:
   - {fileID: 225881404}
   - {fileID: 2009311707}
@@ -17941,14 +17943,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074767717}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  chaseDistance: 10
-  grounddetection: {fileID: 0}
+  chaseDistance: 2
+  grounddetection: {fileID: 2009311707}
 --- !u!114 &2074767720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17961,7 +17963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1680686744}
@@ -17978,6 +17980,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   damage: 50
+  grounddetection: {fileID: 2009311707}
+  chaseDistance: 4
 --- !u!50 &2074767721
 Rigidbody2D:
   serializedVersion: 4
