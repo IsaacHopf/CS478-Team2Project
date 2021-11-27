@@ -23809,7 +23809,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90889611}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -23829,7 +23829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 68783567}
@@ -23847,6 +23847,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 245305549}
+  initialDirection: 1
   chaseDistance: 5
 --- !u!95 &90889615
 Animator:
@@ -24243,7 +24244,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279443849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -24263,7 +24264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 970904853}
@@ -24281,6 +24282,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1410537496}
+  initialDirection: -1
   chaseDistance: 5
 --- !u!95 &279443853
 Animator:
@@ -24475,7 +24477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320627634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -24495,7 +24497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 37110161}
@@ -24513,6 +24515,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1813211929}
+  initialDirection: -1
   chaseDistance: 5
 --- !u!95 &320627638
 Animator:
@@ -24677,7 +24680,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349765742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -24697,7 +24700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1463968118}
@@ -24715,6 +24718,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 970494081}
+  initialDirection: 1
   chaseDistance: 5
 --- !u!95 &349765746
 Animator:
@@ -25140,7 +25144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687588284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -25160,7 +25164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 115400784}
@@ -25178,6 +25182,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 2017022973}
+  initialDirection: 1
   chaseDistance: 5
 --- !u!95 &687588288
 Animator:
@@ -35109,7 +35114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379671378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -35129,7 +35134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1158282333}
@@ -35147,6 +35152,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1193726063}
+  initialDirection: -1
   chaseDistance: 5
 --- !u!95 &1379671382
 Animator:
@@ -35733,7 +35739,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539547380}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4790c6077b17beb4c8120b90acbc39b8, type: 3}
   m_Name: 
@@ -35753,7 +35759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1865897344}
@@ -35771,6 +35777,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1693821671}
+  initialDirection: 1
   chaseDistance: 5
 --- !u!95 &1539547384
 Animator:

@@ -8,12 +8,21 @@ public class Enemy : Character
 
     private Transform target; //this will be the target the enemy chases.
     public Transform grounddetection;
-    [SerializeField] protected float chaseDistance = 5;
+    public float initialDirection;
+    private float oldDirection;
+    [SerializeField] protected float chaseDistance = 7;
 
     public override void Start()
     {
         base.Start();
-        direction = -1;
+        if (initialDirection == -1)
+        {
+            facingRight = false;
+        }
+
+
+        direction = initialDirection;
+        oldDirection = direction;
         currentHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
@@ -44,6 +53,7 @@ public class Enemy : Character
     protected override void HandleMovement()
     {
         base.HandleMovement();
+        
 
         //If the target (player) is within chaseDistance, chase the player.
         if (Vector2.Distance(transform.position, target.position) < chaseDistance)
@@ -52,6 +62,7 @@ public class Enemy : Character
             if (target.position.x < transform.position.x)
             {
                 direction = -1;
+
                 TurnAround(direction);
 
 
@@ -60,27 +71,32 @@ public class Enemy : Character
             else
             {
                 direction = 1;
+
                 TurnAround(direction);
 
             }
         }
+
+        //OTHERWISE just patrol.
         else
         {
+            
             RaycastHit2D groundinfo = Physics2D.Raycast(grounddetection.position, Vector2.right, .1f);
+            direction = oldDirection;
+            TurnAround(direction);
+            
             if (groundinfo.collider == true)
             {
                 if (direction == 1) //moving right
                 {
-                    //transform.eulerAngles = new Vector3(0, -180, 0);
-                    //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
                     direction = -1;
+                    oldDirection = direction;
                     TurnAround(direction);
                 }
                 else if (direction == -1) //moving left
-                {
-                    //transform.eulerAngles = new Vector3(0, 0, 0);
-                    //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                {              
                     direction = 1;
+                    oldDirection = direction;
                     TurnAround(direction);
                 }
 

@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1977191730}
@@ -1214,7 +1214,8 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 1555194236}
-  chaseDistance: 3
+  initialDirection: 1
+  chaseDistance: 7
 --- !u!95 &369179362
 Animator:
   serializedVersion: 3
@@ -18729,7 +18730,8 @@ MonoBehaviour:
   currentHealth: 0
   damage: 50
   grounddetection: {fileID: 2009311707}
-  chaseDistance: 4
+  initialDirection: 1
+  chaseDistance: 3
 --- !u!50 &2074767721
 Rigidbody2D:
   serializedVersion: 4
