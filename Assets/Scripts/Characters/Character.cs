@@ -14,6 +14,7 @@ public abstract class Character : MonoBehaviour
     protected float direction;
 
     protected bool facingRight = true;
+    protected bool isDead = false;
 
     [Header("Jump Variables")]
     [SerializeField] protected float jumpForce;
@@ -49,15 +50,23 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Update()
     {
-        //grounded if:
-        grounded = Physics2D.OverlapCircle(groundcheck.position, radOCircle, whatIsGround);
+        if (!isDead)
+        {
+            //grounded if:
+            grounded = Physics2D.OverlapCircle(groundcheck.position, radOCircle, whatIsGround);
+        }
+
 
     }
 
     public virtual void FixedUpdate()
     {
-        //handles mechanices and physics
-        HandleMovement();
+        if (!isDead)
+        {
+            //handles mechanices and physics
+            HandleMovement();
+        }
+
 
     }
     //actually moves the chacter

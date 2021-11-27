@@ -17963,7 +17963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1680686744}
@@ -18851,6 +18851,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6366354147849015232, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_Name
       value: Player

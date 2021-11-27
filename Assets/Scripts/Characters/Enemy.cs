@@ -13,14 +13,17 @@ public class Enemy : Character
     public override void Start()
     {
         base.Start();
-        direction = 1;
+        direction = -1;
         currentHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     public override void Update()
     {
-        base.Update();
+        if (!isDead)
+        {
+            base.Update();
+        }
 
     }
 
@@ -95,8 +98,9 @@ public class Enemy : Character
 
     protected override void Death()
     {
+        isDead = true;
         myAnimator.SetTrigger("death");
-        Invoke("DeactivateEnemy", 10); //deactivates the enemy after death (10 secs)
+        Invoke("DeactivateEnemy", 5); //deactivates the enemy after death (10 secs)
     }
 
     private void DeactivateEnemy()
