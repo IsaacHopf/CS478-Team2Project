@@ -18724,7 +18724,7 @@ MonoBehaviour:
     m_Bits: 64
   grounded: 0
   attackPoint: {fileID: 225881404}
-  attackRange: 2
+  attackRange: 3
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -18735,7 +18735,7 @@ MonoBehaviour:
   grounddetection: {fileID: 2009311707}
   initialDirection: 1
   attackDistance: 2
-  chaseDistance: 3
+  chaseDistance: 5
 --- !u!50 &2074767721
 Rigidbody2D:
   serializedVersion: 4

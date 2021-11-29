@@ -13,7 +13,7 @@ public class Enemy : Character
     private bool playerWithinRange = false;
     private float distanceToPlayer;
     private float oldDirection;
-    private bool alreadyAttacking;
+    private bool hasBeenDamaged = false;
     [SerializeField] protected float chaseDistance = 7;
 
     public override void Start()
@@ -23,7 +23,6 @@ public class Enemy : Character
         {
             facingRight = false;
         }
-
 
         direction = initialDirection;
         oldDirection = direction;
@@ -67,6 +66,7 @@ public class Enemy : Character
             //If the player is to the LEFT of the Enemy, move the Enemy LEFT
             if (target.position.x < transform.position.x)
             {
+                myAnimator.SetTrigger("walk");
                 direction = -1;
 
                 TurnAround(direction);
@@ -76,6 +76,7 @@ public class Enemy : Character
             //ELSE, the player is to the RIGHT of the Enemy, so move the Enemey RIGHT
             else
             {
+                myAnimator.SetTrigger("walk");
                 direction = 1;
                 TurnAround(direction);
 
@@ -103,12 +104,15 @@ public class Enemy : Character
             {
                 if (direction == 1) //moving right
                 {
+                    myAnimator.SetTrigger("walk");
                     direction = -1;
                     oldDirection = direction;
                     TurnAround(direction);
+                    
                 }
                 else if (direction == -1) //moving left
-                {              
+                {
+                    myAnimator.SetTrigger("walk");
                     direction = 1;
                     oldDirection = direction;
                     TurnAround(direction);
@@ -137,10 +141,12 @@ public class Enemy : Character
         if (playerWithinRange)
         {
             myAnimator.SetTrigger("attack");
-            if (myAnimator.GetBool("attackFinished"))
-                {
-                    Attack();
-                }
+            myAnimator.ResetTrigger("walk");
+
+        }
+        else
+        {
+            myAnimator.ResetTrigger("attack");
 
         }
     }
@@ -150,15 +156,24 @@ public class Enemy : Character
     }
     protected override void Attack() {
 
-
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D player in hitPlayers)
         {
+            if (!hasBeenDamaged)
+            {
 
-            player.GetComponent<Player>().AdjustCurrentHealth(damage * -1);
+                player.GetComponent<Player>().AdjustCurrentHealth(damage * -1);
+                hasBeenDamaged = true;
+
+            }
         }
 
-        myAnimator.ResetTrigger("attackFinished");
+
+    }
+
+    private void attackIsFinished()
+    {
+        hasBeenDamaged = false;
     }
 
     protected override void Death()
