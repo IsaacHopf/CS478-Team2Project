@@ -24360,6 +24360,7 @@ GameObject:
   - component: {fileID: 349765746}
   - component: {fileID: 349765745}
   - component: {fileID: 349765744}
+  - component: {fileID: 349765750}
   m_Layer: 3
   m_Name: HellGato
   m_TagString: Untagged
@@ -24406,12 +24407,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349765742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8b6c5e711f717546b49b25bdf105c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 8
   jumpForce: 0
   jumpTime: 0
   groundcheck: {fileID: 1463968118}
@@ -24550,6 +24551,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &349765750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349765742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff336de0a52300d41991ef9c580ee982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  jumpForce: 0
+  jumpTime: 0
+  groundcheck: {fileID: 1463968118}
+  radOCircle: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  grounded: 0
+  attackPoint: {fileID: 2060551416}
+  attackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  playerToAttack: {fileID: 0}
+  maxHealth: 0
+  currentHealth: 0
+  damage: 50
+  grounddetection: {fileID: 970494081}
+  initialDirection: 0
+  attackDistance: 2
+  runSpeed: 15
+  walkSpeed: 6
+  chaseDistance: 8.5
 --- !u!1 &462462322
 GameObject:
   m_ObjectHideFlags: 0
