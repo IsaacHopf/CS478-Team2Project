@@ -84,7 +84,7 @@ public class IntroAnimation : MonoBehaviour
         "including his true love, Rose.",
         "But the demons returned ...",
         "and captured the world's hero.",
-        "Rose vowed to end the demons.",
+        "Rose vowed to slay the demons.",
         "Will Rose save the world ...",
         "and her true love?"};
 
