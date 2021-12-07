@@ -2,9 +2,9 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class BossFightAnimationData //this data is saved during a play session, and it can be accessed from any scene
+public class BossFightAnimationData //this data is saved during a play session, and it can be accessed from any scene at any time
 {
-    public static bool hasSeenBossFightIntro = false;
+    public static bool hasSeenBossFightAnimation = false;
 }
 
 public class BossFightAnimation : MonoBehaviour
@@ -14,13 +14,27 @@ public class BossFightAnimation : MonoBehaviour
     [SerializeField] private Animator bossFightAnimationTextAnimator;
     [SerializeField] private TextMeshProUGUI bossFightAnimationText;
 
+    private int numTriggers = 0;
+
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        GetComponent<EdgeCollider2D>().enabled = false;
-        StartCoroutine(TriggerBossFight());
+        numTriggers++;
+
+        if (numTriggers == 1)
+        {
+            if (BossFightAnimationData.hasSeenBossFightAnimation == false)
+            {
+                StartCoroutine(PlayFullBossFightAnimation());
+                BossFightAnimationData.hasSeenBossFightAnimation = true;
+            }
+            else
+            {
+                StartCoroutine(PlayShortBossFightAnimation());
+            }
+        }    
     }
 
-    private IEnumerator TriggerBossFight()
+    private IEnumerator PlayFullBossFightAnimation()
     {
         yield return new WaitForSeconds(1f);
         bossFightAnimationText.text = "Foolish Girl";
@@ -37,18 +51,21 @@ public class BossFightAnimation : MonoBehaviour
         bossFightAnimationTextAnimator.SetTrigger("FadeOut");
         yield return new WaitForSeconds(0.5f);
 
-        boss.SetActive(true);
-        gameObject.SetActive(false);
-
-        BossFightAnimationData.hasSeenBossFightIntro = true;
+        ActivateBossFight();
     }
 
-    private void Start()
+    private IEnumerator PlayShortBossFightAnimation()
     {
-        if (BossFightAnimationData.hasSeenBossFightIntro == true)
-        {
-            boss.SetActive(true);
-            gameObject.SetActive(false);
-        }
+        yield return new WaitForSeconds(0.2f);
+        GetComponent<Animator>().SetTrigger("DeactivateIllusion");
+        yield return new WaitForSeconds(1.5f);
+
+        ActivateBossFight();
+    }
+
+    private void ActivateBossFight()
+    {
+        boss.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

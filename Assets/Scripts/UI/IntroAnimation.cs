@@ -2,9 +2,9 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class IntroAnimationData //this data is saved during a play session, and it can be accessed from any scene
+public class IntroAnimationData //this data is saved during a play session, and it can be accessed from any scene at any time
 {
-    public static bool hasSeenIntro = false;
+    public static bool hasSeenIntroAnimation = false;
 }
 
 public class IntroAnimation : MonoBehaviour
@@ -23,12 +23,12 @@ public class IntroAnimation : MonoBehaviour
     {
         introAnimator = GetComponent<Animator>();
 
-        if (IntroAnimationData.hasSeenIntro == false)
+        if (IntroAnimationData.hasSeenIntroAnimation == false)
         {
             StartCoroutine(PlayIntroAnimation());
-            IntroAnimationData.hasSeenIntro = true;
+            IntroAnimationData.hasSeenIntroAnimation = true;
         }
-        else if (IntroAnimationData.hasSeenIntro == true)
+        else
         {
             StartCoroutine(LoadMainMenu());
         }
