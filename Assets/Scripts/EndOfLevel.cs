@@ -20,6 +20,7 @@ public class EndOfLevel : MonoBehaviour
     private void FixedUpdate()
     {
         playerX = player.transform.position.x;
+        eolX = GetComponent<Transform>().position.x;
 
         if (playerX > eolX)
         {
