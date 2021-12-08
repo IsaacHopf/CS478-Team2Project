@@ -1,32 +1,25 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 
-public class Boss : Character
+public class BossOld : Character
 {
-    private static System.Timers.Timer attackDelay;
-
     private Transform target; //this will be the target the enemy chases.
     public Transform grounddetection;
     public float initialDirection;
-    public float attackDistance = 1;
+    public float attackDistance = 2;
     private bool playerWithinRange = false;
     private float distanceToPlayer;
+    private float oldDirection;
     private bool hasBeenDamaged = false;
-    private bool chasePlayer = false;
-    private Vector2 originalPosition;
-    public float attackDelayInterval = 200;
-    [SerializeField] protected float chaseDistance = 10;
+    [SerializeField] protected float chaseDistance = 7;
 
     [Header("Activate Exit Objects")]
     [SerializeField] private GameObject exitPlatforms;
     [SerializeField] private GameObject exitDecorations;
     [SerializeField] private GameObject endOfLevel;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         base.Start();
         if (initialDirection == -1)
@@ -35,54 +28,36 @@ public class Boss : Character
         }
 
         direction = initialDirection;
+        oldDirection = direction;
         currentHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        originalPosition = transform.position;
-
-        attackDelay = new System.Timers.Timer(attackDelayInterval);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         if (!isDead)
         {
             base.Update();
-            distanceToPlayer = Vector3.Distance(transform.position, target.position);
-
+            distanceToPlayer = Vector2.Distance(transform.position, target.position);
             HandleAttack();
         }
+
     }
 
     protected override void HandleMovement()
     {
+        base.HandleMovement();
+        
 
-        Vector3 ghostDirection = target.position - transform.position;
-        if (distanceToPlayer < chaseDistance)
-        {
-            chasePlayer = true;
-        }
-        else
-        {
-            chasePlayer = false;
-        }
-
-        if (chasePlayer)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
-        }
-
+        //If the target (player) is within chaseDistance but out of range
         if (distanceToPlayer < chaseDistance && !playerWithinRange)
         {
             //If the player is to the LEFT of the Enemy, move the Enemy LEFT
             if (target.position.x < transform.position.x)
             {
-
+                myAnimator.SetTrigger("walk");
                 direction = -1;
+
                 TurnAround(direction);
 
 
@@ -90,8 +65,47 @@ public class Boss : Character
             //ELSE, the player is to the RIGHT of the Enemy, so move the Enemey RIGHT
             else
             {
+                myAnimator.SetTrigger("walk");
                 direction = 1;
                 TurnAround(direction);
+
+            }
+
+
+        }
+
+        //if the player is within range to attack
+        else if (playerWithinRange)
+        {
+
+            direction = 0;
+        }
+
+        //OTHERWISE just patrol.
+        else
+        {
+            
+            RaycastHit2D groundinfo = Physics2D.Raycast(grounddetection.position, Vector2.right, .1f);
+            direction = oldDirection;
+            TurnAround(direction);
+            
+            if (groundinfo.collider == true)
+            {
+                if (direction == 1) //moving right
+                {
+                    myAnimator.SetTrigger("walk");
+                    direction = -1;
+                    oldDirection = direction;
+                    TurnAround(direction);
+                    
+                }
+                else if (direction == -1) //moving left
+                {
+                    myAnimator.SetTrigger("walk");
+                    direction = 1;
+                    oldDirection = direction;
+                    TurnAround(direction);
+                }
 
             }
         }
@@ -115,20 +129,21 @@ public class Boss : Character
         //attack if player is within range
         if (playerWithinRange)
         {
-            Attack();
+            myAnimator.SetTrigger("attack");
+            myAnimator.ResetTrigger("walk");
 
         }
+        else
+        {
+            myAnimator.ResetTrigger("attack");
 
+        }
     }
     protected override void HandleJumping()
     {
 
     }
-    protected override void Attack()
-    {
-
-        attackDelay.Start();
-        attackDelay.Elapsed += new System.Timers.ElapsedEventHandler(AttackDelayOver);
+    protected override void Attack() {
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D player in hitPlayers)
@@ -138,6 +153,7 @@ public class Boss : Character
 
                 player.GetComponent<Player>().AdjustCurrentHealth(damage * -1);
                 hasBeenDamaged = true;
+
             }
         }
 
@@ -149,26 +165,18 @@ public class Boss : Character
         isDead = true;
         direction = 0;
         myAnimator.SetTrigger("death");
-        Invoke("DeactivateEnemy", 1); //deactivates the enemy after death (10 secs)
-    }
+        Invoke("DeactivateEnemy", 5); //deactivates the enemy after death (10 secs)
 
+        ActivateExit();
+    }
     private void DeactivateEnemy()
     {
         gameObject.SetActive(false);
     }
-
-    private void AttackDelayOver(object sender, ElapsedEventArgs elapsedEventArg)
-    {
-        hasBeenDamaged = false;
-        attackDelay.Stop();
-    }
-
     private void ActivateExit()
-{
-    exitPlatforms.SetActive(true);
-    exitDecorations.SetActive(true);
-    endOfLevel.transform.position = new Vector3(11.98f, endOfLevel.transform.position.y, endOfLevel.transform.position.z);
+    {
+        exitPlatforms.SetActive(true);
+        exitDecorations.SetActive(true);
+        endOfLevel.transform.position = new Vector3(11.98f, endOfLevel.transform.position.y, endOfLevel.transform.position.z);
+    }
 }
-}
-
-
