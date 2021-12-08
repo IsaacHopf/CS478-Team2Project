@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : Character
 {
     private float runSpeed = 12.0f;
-    private float walkSpeed = 1.0f;
 
     private HealthBar healthBar;
 
@@ -99,9 +98,22 @@ public class Player : Character
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
+            if (enemy.transform.gameObject.tag == "Gato")
+            {
+                enemy.GetComponent<Gato>().AdjustCurrentHealth(damage * -1);
+            }
 
-            enemy.GetComponent<Enemy>().AdjustCurrentHealth(damage * -1);
+            if (enemy.transform.gameObject.tag == "Skeleton")
+            { 
+                enemy.GetComponent<Enemy>().AdjustCurrentHealth(damage * -1);
+            }
+
         }
+
+
+
+
+
     }
 
     protected override void Death()
