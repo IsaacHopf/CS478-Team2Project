@@ -20,8 +20,11 @@ public class Boss : Character
     private float distanceToPlayer;
     private bool hasBeenDamaged = false;
     private bool chasePlayer = false;
-    private Vector2 originalPosition;
+    private Vector3 originalPosition;
+    private Vector3 targetPosition;
     public float attackDelayInterval = 200;
+    private bool phase1Begin = true;
+    private bool phase2Begin = true;
     [SerializeField] protected float chaseDistance = 15;
 
     [Header("Timer Intervals")]
@@ -36,7 +39,8 @@ public class Boss : Character
 
     [Header("Phase variables")]
     [SerializeField] private float bossPhase1Speed = 8;
-    [SerializeField] private float bossPhase2Speed = 8;
+    [SerializeField] private float bossPhase2AttackSpeed = 12;
+    [SerializeField] private float bossPhase2ReturnSpeed = 4;
     [SerializeField] private float bossPhase3Speed = 8;
 
     [Header("Activate Exit Objects")]
@@ -85,8 +89,18 @@ public class Boss : Character
         //PHASE 1
         if (bossPhase1)
         {
+            bossPhase1Timer.Start();
+            bossPhase1Timer.Elapsed += new System.Timers.ElapsedEventHandler(EndPhase1);
+
+            if (phase1Begin)
+            {
+                target = GameObject.FindGameObjectWithTag("BossBoundLeft").GetComponent<Transform>();
+                targetTag = "BossBoundLeft";
+                phase1Begin = false;
+            }
+
             speed = bossPhase1Speed;
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
             //if it hits the left bound, go back right
             if (transform.position == target.position && targetTag == "BossBoundLeft")
@@ -108,28 +122,46 @@ public class Boss : Character
         }
 
         //PHASE 2
-        if (bossPhase2)
+        else if (bossPhase2)
         {
-            speed = bossPhase2Speed;
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+            bossPhase2Timer.Start();
+            bossPhase2Timer.Elapsed += new System.Timers.ElapsedEventHandler(EndPhase2);
+
+            if (phase2Begin)
+
+            {
+                target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+                targetTag = "Player";
+                targetPosition = target.position;
+                originalPosition = transform.position;
+                phase2Begin = false;
+                chasePlayer = true;
+            }
 
             if (chasePlayer)
             {
-                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+                speed = bossPhase2AttackSpeed;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             }
             else
             {
-                transform.position = Vector2.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+                speed = bossPhase2ReturnSpeed;
+                transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
             }
 
-            if (transform.position == target.position && targetTag == "Player")
+            if (transform.position == targetPosition && targetTag == "Player")
             {
-
+                chasePlayer = false;
+                targetTag = "Origin";
+                Attack();
             }
             
-            if (transform.position == target.position && targetTag == "Origin")
+            if (transform.position == originalPosition && targetTag == "Origin")
             {
-
+                chasePlayer = true;
+                phase2Begin = true;
+                hasBeenDamaged = false;
             }
 
 
@@ -239,6 +271,28 @@ public class Boss : Character
     exitDecorations.SetActive(true);
     endOfLevel.transform.position = new Vector3(11.98f, endOfLevel.transform.position.y, endOfLevel.transform.position.z);
 }
+
+    private void EndPhase1(object sender, ElapsedEventArgs elapsedEventArg)
+    {
+        Debug.Log("PHASE 1 end");
+        bossPhase1Timer.Stop();
+        bossPhase1 = false;
+        bossPhase2 = true;
+        phase2Begin = true;
+        hasBeenDamaged = false;
+
+    }
+
+    private void EndPhase2(object sender, ElapsedEventArgs elapsedEventArg)
+    {
+        bossPhase2Timer.Stop();
+        bossPhase1 = true;
+        bossPhase2 = false;
+        phase1Begin = true;
+
+        Debug.Log("PHASE 2 end");
+
+    }
 }
 
 
