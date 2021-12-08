@@ -108,6 +108,11 @@ public class Player : Character
                 enemy.GetComponent<Enemy>().AdjustCurrentHealth(damage * -1);
             }
 
+            if (enemy.transform.gameObject.tag == "Ghost")
+            {
+                enemy.GetComponent<Ghost>().AdjustCurrentHealth(damage * -1);
+            }
+
         }
 
 

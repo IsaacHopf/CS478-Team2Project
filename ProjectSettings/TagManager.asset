@@ -7,6 +7,7 @@ TagManager:
   - ExitPlatforms
   - Gato
   - Skeleton
+  - Ghost
   layers:
   - Default
   - TransparentFX

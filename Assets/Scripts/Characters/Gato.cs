@@ -66,7 +66,6 @@ public class Gato : Character
     protected override void HandleMovement()
     {
         base.HandleMovement();
-        Debug.Log(distanceToPlayer);
 
         RaycastHit2D groundinfo = Physics2D.Raycast(grounddetection.position, Vector2.right, .1f);
 

@@ -1,22 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
-
-public class Enemy : Character
+public class Ghost : Character
 {
+    private static System.Timers.Timer attackDelay;
 
     private Transform target; //this will be the target the enemy chases.
     public Transform grounddetection;
     public float initialDirection;
-    public float attackDistance = 2;
+    public float attackDistance = 1;
     private bool playerWithinRange = false;
     private float distanceToPlayer;
-    private float oldDirection;
     private bool hasBeenDamaged = false;
-    [SerializeField] protected float chaseDistance = 7;
+    private bool chasePlayer = false;
+    private Vector2 originalPosition;
+    public float attackDelayInterval = 200;
+    [SerializeField] protected float chaseDistance = 10;
 
-    public override void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         base.Start();
         if (initialDirection == -1)
@@ -25,36 +30,54 @@ public class Enemy : Character
         }
 
         direction = initialDirection;
-        oldDirection = direction;
         currentHealth = maxHealth;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        originalPosition = transform.position;
+
+        attackDelay = new System.Timers.Timer(attackDelayInterval);
     }
 
-    public override void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (!isDead)
         {
             base.Update();
-            distanceToPlayer = Vector2.Distance(transform.position, target.position);
+            distanceToPlayer = Vector3.Distance(transform.position, target.position);
+
             HandleAttack();
         }
-
     }
 
     protected override void HandleMovement()
     {
-        base.HandleMovement();
-        
 
-        //If the target (player) is within chaseDistance but out of range
+        Vector3 ghostDirection = target.position - transform.position;
+        if (distanceToPlayer < chaseDistance)
+        {
+            chasePlayer = true;
+        }
+        else
+        {
+            chasePlayer = false;
+        }
+
+        if (chasePlayer)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+        }
+
         if (distanceToPlayer < chaseDistance && !playerWithinRange)
         {
             //If the player is to the LEFT of the Enemy, move the Enemy LEFT
             if (target.position.x < transform.position.x)
             {
-                myAnimator.SetTrigger("walk");
-                direction = -1;
 
+                direction = -1;
                 TurnAround(direction);
 
 
@@ -62,47 +85,8 @@ public class Enemy : Character
             //ELSE, the player is to the RIGHT of the Enemy, so move the Enemey RIGHT
             else
             {
-                myAnimator.SetTrigger("walk");
                 direction = 1;
                 TurnAround(direction);
-
-            }
-
-
-        }
-
-        //if the player is within range to attack
-        else if (playerWithinRange)
-        {
-
-            direction = 0;
-        }
-
-        //OTHERWISE just patrol.
-        else
-        {
-            
-            RaycastHit2D groundinfo = Physics2D.Raycast(grounddetection.position, Vector2.right, .1f);
-            direction = oldDirection;
-            TurnAround(direction);
-            
-            if (groundinfo.collider == true)
-            {
-                if (direction == 1) //moving right
-                {
-                    myAnimator.SetTrigger("walk");
-                    direction = -1;
-                    oldDirection = direction;
-                    TurnAround(direction);
-                    
-                }
-                else if (direction == -1) //moving left
-                {
-                    myAnimator.SetTrigger("walk");
-                    direction = 1;
-                    oldDirection = direction;
-                    TurnAround(direction);
-                }
 
             }
         }
@@ -126,21 +110,20 @@ public class Enemy : Character
         //attack if player is within range
         if (playerWithinRange)
         {
-            myAnimator.SetTrigger("attack");
-            myAnimator.ResetTrigger("walk");
+            Attack();
 
         }
-        else
-        {
-            myAnimator.ResetTrigger("attack");
 
-        }
     }
     protected override void HandleJumping()
     {
 
     }
-    protected override void Attack() {
+    protected override void Attack()
+    {
+
+        attackDelay.Start();
+        attackDelay.Elapsed += new System.Timers.ElapsedEventHandler(AttackDelayOver);
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D player in hitPlayers)
@@ -150,16 +133,10 @@ public class Enemy : Character
 
                 player.GetComponent<Player>().AdjustCurrentHealth(damage * -1);
                 hasBeenDamaged = true;
-
             }
         }
 
 
-    }
-
-    private void attackIsFinished()
-    {
-        hasBeenDamaged = false;
     }
 
     protected override void Death()
@@ -167,11 +144,17 @@ public class Enemy : Character
         isDead = true;
         direction = 0;
         myAnimator.SetTrigger("death");
-        Invoke("DeactivateEnemy", 5); //deactivates the enemy after death (10 secs)
+        Invoke("DeactivateEnemy", 1); //deactivates the enemy after death (10 secs)
     }
 
     private void DeactivateEnemy()
     {
         gameObject.SetActive(false);
+    }
+
+    private void AttackDelayOver(object sender, ElapsedEventArgs elapsedEventArg)
+    {
+        hasBeenDamaged = false;
+        attackDelay.Stop();
     }
 }
