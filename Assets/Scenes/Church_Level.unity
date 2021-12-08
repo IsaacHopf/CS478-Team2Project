@@ -6571,7 +6571,7 @@ GameObject:
   - component: {fileID: 242145852}
   m_Layer: 3
   m_Name: SkeletonWithSword
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6767,6 +6767,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: attackRange
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: enemyLayers.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -6821,6 +6825,14 @@ PrefabInstance:
     - target: {fileID: 6366354147849015238, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
@@ -40599,7 +40611,7 @@ GameObject:
   - component: {fileID: 734970470}
   m_Layer: 3
   m_Name: SkeletonWithSword
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40921,7 +40933,7 @@ GameObject:
   - component: {fileID: 798521255}
   m_Layer: 3
   m_Name: SkeletonWithSword
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41558,7 +41570,7 @@ GameObject:
   - component: {fileID: 1062036606}
   m_Layer: 3
   m_Name: SkeletonWithSword (1)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42001,7 +42013,7 @@ GameObject:
   - component: {fileID: 1127763646}
   m_Layer: 3
   m_Name: SkeletonWithSword (2)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42206,7 +42218,7 @@ GameObject:
   - component: {fileID: 1129410100}
   m_Layer: 3
   m_Name: SkeletonWithSword (3)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43550,7 +43562,7 @@ GameObject:
   - component: {fileID: 2044196187}
   m_Layer: 3
   m_Name: SkeletonWithSword (1)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43755,7 +43767,7 @@ GameObject:
   - component: {fileID: 2044798744}
   m_Layer: 3
   m_Name: SkeletonWithSword (2)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

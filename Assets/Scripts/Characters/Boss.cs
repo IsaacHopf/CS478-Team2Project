@@ -6,9 +6,13 @@ using UnityEngine;
 
 public class Boss : Character
 {
-    private static System.Timers.Timer attackDelay;
+
+    private static System.Timers.Timer bossPhase1Timer;
+    private static System.Timers.Timer bossPhase2Timer;
+    private static System.Timers.Timer bossPhase3Timer;
 
     private Transform target; //this will be the target the enemy chases.
+    private string targetTag;
     public Transform grounddetection;
     public float initialDirection;
     public float attackDistance = 1;
@@ -18,7 +22,22 @@ public class Boss : Character
     private bool chasePlayer = false;
     private Vector2 originalPosition;
     public float attackDelayInterval = 200;
-    [SerializeField] protected float chaseDistance = 10;
+    [SerializeField] protected float chaseDistance = 15;
+
+    [Header("Timer Intervals")]
+    [SerializeField] private float bossPhase1TimerInterval = 5000;
+    [SerializeField] private float bossPhase2TimerInterval = 5000;
+    [SerializeField] private float bossPhase3TimerInterval = 5000;
+
+    [Header("Boss Phase Booleans")]
+    [SerializeField] private bool bossPhase1 = false;
+    [SerializeField] private bool bossPhase2 = false;
+    [SerializeField] private bool bossPhase3 = false;
+
+    [Header("Phase variables")]
+    [SerializeField] private float bossPhase1Speed = 8;
+    [SerializeField] private float bossPhase2Speed = 8;
+    [SerializeField] private float bossPhase3Speed = 8;
 
     [Header("Activate Exit Objects")]
     [SerializeField] private GameObject exitPlatforms;
@@ -36,10 +55,15 @@ public class Boss : Character
 
         direction = initialDirection;
         currentHealth = maxHealth;
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("BossBoundLeft").GetComponent<Transform>();
+        targetTag = "BossBoundLeft";
         originalPosition = transform.position;
+        bossPhase1 = true;
 
-        attackDelay = new System.Timers.Timer(attackDelayInterval);
+        //initialize timers
+        bossPhase1Timer = new System.Timers.Timer(bossPhase1TimerInterval);
+        bossPhase2Timer = new System.Timers.Timer(bossPhase2TimerInterval);
+        bossPhase3Timer = new System.Timers.Timer(bossPhase3TimerInterval);
     }
 
     // Update is called once per frame
@@ -57,7 +81,62 @@ public class Boss : Character
     protected override void HandleMovement()
     {
 
-        Vector3 ghostDirection = target.position - transform.position;
+
+        //PHASE 1
+        if (bossPhase1)
+        {
+            speed = bossPhase1Speed;
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+
+            //if it hits the left bound, go back right
+            if (transform.position == target.position && targetTag == "BossBoundLeft")
+            {
+                target = GameObject.FindGameObjectWithTag("BossBoundRight").GetComponent<Transform>();
+                targetTag = "BossBoundRight";
+                direction = 1;
+                TurnAround(direction);
+            }
+
+            //if it hits the right bound, go back left
+            if (transform.position == target.position && targetTag == "BossBoundRight")
+            {
+                target = GameObject.FindGameObjectWithTag("BossBoundLeft").GetComponent<Transform>();
+                targetTag = "BossBoundLeft";
+                direction = -1;
+                TurnAround(direction);
+            }
+        }
+
+        //PHASE 2
+        if (bossPhase2)
+        {
+            speed = bossPhase2Speed;
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+            if (chasePlayer)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.position = Vector2.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+            }
+
+            if (transform.position == target.position && targetTag == "Player")
+            {
+
+            }
+            
+            if (transform.position == target.position && targetTag == "Origin")
+            {
+
+            }
+
+
+        }
+        //PHASE 3
+
+        /*Vector3 ghostDirection = target.position - transform.position;
         if (distanceToPlayer < chaseDistance)
         {
             chasePlayer = true;
@@ -94,7 +173,7 @@ public class Boss : Character
                 TurnAround(direction);
 
             }
-        }
+        }*/
     }
 
     protected override void HandleAttack()
@@ -127,9 +206,6 @@ public class Boss : Character
     protected override void Attack()
     {
 
-        attackDelay.Start();
-        attackDelay.Elapsed += new System.Timers.ElapsedEventHandler(AttackDelayOver);
-
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D player in hitPlayers)
         {
@@ -140,7 +216,6 @@ public class Boss : Character
                 hasBeenDamaged = true;
             }
         }
-
 
     }
 
@@ -155,12 +230,7 @@ public class Boss : Character
     private void DeactivateEnemy()
     {
         gameObject.SetActive(false);
-    }
-
-    private void AttackDelayOver(object sender, ElapsedEventArgs elapsedEventArg)
-    {
-        hasBeenDamaged = false;
-        attackDelay.Stop();
+        ActivateExit();
     }
 
     private void ActivateExit()

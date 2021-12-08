@@ -18369,7 +18369,7 @@ GameObject:
   - component: {fileID: 2074767719}
   m_Layer: 3
   m_Name: SkeletonWithSword
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19203,6 +19203,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: attackRange
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: currentHealth
       value: 0
       objectReference: {fileID: 0}
@@ -19261,6 +19265,14 @@ PrefabInstance:
     - target: {fileID: 6366354147849015238, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: 6366354147936381975, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_Layer

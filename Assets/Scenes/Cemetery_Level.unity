@@ -34467,6 +34467,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: attackRange
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147849015225, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: enemyLayers.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -34521,6 +34525,14 @@ PrefabInstance:
     - target: {fileID: 6366354147849015238, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366354147936381972, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.74
       objectReference: {fileID: 0}
     - target: {fileID: 6366354147936381975, guid: 6dd6fed2bb32d8e4eb38817a221945cc, type: 3}
       propertyPath: m_Layer
