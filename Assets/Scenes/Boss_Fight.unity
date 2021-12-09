@@ -3538,7 +3538,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   playerToAttack: {fileID: 0}
-  maxHealth: 10000
+  maxHealth: 1000
   currentHealth: 0
   damage: 4
   grounddetection: {fileID: 1752012155}
